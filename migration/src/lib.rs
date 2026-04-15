@@ -2,6 +2,11 @@ pub use sea_orm_migration::prelude::*;
 
 mod m20220101_000001_create_table;
 mod m20260414_163245_create_users;
+mod m20260415_104456_create_service_list;
+mod m20260415_105052_create_customers;
+mod m20260415_105108_create_vehicles;
+mod m20260415_105313_create_service_orders;
+mod m20260415_105321_create_service_order_items;
 
 pub struct Migrator;
 
@@ -11,6 +16,11 @@ impl MigratorTrait for Migrator {
         vec![
             Box::new(m20220101_000001_create_table::Migration),
             Box::new(m20260414_163245_create_users::Migration),
+            Box::new(m20260415_104456_create_service_list::Migration),
+            Box::new(m20260415_105052_create_customers::Migration),
+            Box::new(m20260415_105108_create_vehicles::Migration),
+            Box::new(m20260415_105313_create_service_orders::Migration),
+            Box::new(m20260415_105321_create_service_order_items::Migration),
         ]
     }
 }

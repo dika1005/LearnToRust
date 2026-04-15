@@ -2,4 +2,10 @@
 
 pub mod prelude;
 
+pub mod customers;
+pub mod service_list;
+pub mod service_order_items;
+pub mod service_orders;
 pub mod spareparts;
+pub mod users;
+pub mod vehicles;

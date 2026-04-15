@@ -1,4 +1,4 @@
-use sea_orm_migration::prelude::*;
+use sea_orm_migration::{prelude::*, schema::*};
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;
@@ -10,17 +10,14 @@ impl MigrationTrait for Migration {
         manager
             .create_table(
                 Table::create()
-                    .table(Spareparts::Table)
-                    .if_not_exists()
-                    // Kolom ID: Integer, Primary Key, Auto Increment
-                    .col(ColumnDef::new(Spareparts::Id).integer().not_null().auto_increment().primary_key())
-                    // Kolom Nama: String/Varchar, Tidak boleh kosong
-                    .col(ColumnDef::new(Spareparts::Name).string().not_null())
-                    // Kolom Stok: Integer, Tidak boleh kosong
-                    .col(ColumnDef::new(Spareparts::Stock).integer().not_null())
-                    // Kolom Harga: Decimal, Tidak boleh kosong
-                    .col(ColumnDef::new(Spareparts::Price).decimal().not_null())
-                    .to_owned(),
+                .table(Spareparts::Table)
+                .if_not_exists()
+                .col(pk_auto(Spareparts::Id))
+                .col(string(Spareparts::SkuCode).unique_key().not_null())
+                .col(string(Spareparts::Name).not_null())
+                .col(integer(Spareparts::Stock).not_null().default(0))
+                .col(big_integer(Spareparts::Price).not_null())
+                .to_owned(),
             )
             .await
     }
@@ -35,9 +32,10 @@ impl MigrationTrait for Migration {
 
 // Definisikan nama tabel dan kolom di sini agar tidak typo
 #[derive(DeriveIden)]
-enum Spareparts {
+pub enum Spareparts {
     Table,
     Id,
+    SkuCode,
     Name,
     Stock,
     Price,

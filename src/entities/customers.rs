@@ -3,26 +3,24 @@
 use sea_orm::entity::prelude::*;
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq)]
-#[sea_orm(table_name = "spareparts")]
+#[sea_orm(table_name = "customers")]
 pub struct Model {
     #[sea_orm(primary_key)]
     pub id: i32,
-    #[sea_orm(unique)]
-    pub sku_code: String,
     pub name: String,
-    pub stock: i32,
-    pub price: i64,
+    pub phone_number: String,
+    pub address: String,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
-    #[sea_orm(has_many = "super::service_order_items::Entity")]
-    ServiceOrderItems,
+    #[sea_orm(has_many = "super::vehicles::Entity")]
+    Vehicles,
 }
 
-impl Related<super::service_order_items::Entity> for Entity {
+impl Related<super::vehicles::Entity> for Entity {
     fn to() -> RelationDef {
-        Relation::ServiceOrderItems.def()
+        Relation::Vehicles.def()
     }
 }
 

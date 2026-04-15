@@ -11,13 +11,12 @@ impl MigrationTrait for Migration {
         manager
             .create_table(
                 Table::create()
-                    .table(Users::Table)
+                    .table(Customers::Table)
                     .if_not_exists()
-                    .col(pk_auto(Users::Id))
-                    .col(string(Users::Username).unique_key().not_null())
-                    .col(string(Users::Password).not_null())
-                    .col(string(Users::Fullname).not_null())
-                    .col(string(Users::Role))
+                    .col(pk_auto(Customers::Id))
+                    .col(string(Customers::Name).not_null())
+                    .col(string(Customers::PhoneNumber).not_null())
+                    .col(string(Customers::Address))
                     .to_owned(),
             )
             .await
@@ -25,18 +24,18 @@ impl MigrationTrait for Migration {
 
     async fn down(&self, manager: &SchemaManager) -> Result<(), DbErr> {
         // Replace the sample below with your own migration scripts
+
         manager
-            .drop_table(Table::drop().table(Users::Table).to_owned())
+            .drop_table(Table::drop().table(Customers::Table).to_owned())
             .await
     }
 }
 
 #[derive(DeriveIden)]
-pub enum Users {
+pub enum Customers {
     Table,
     Id,
-    Username,
-    Password,
-    Fullname,
-    Role,
+    Name,
+    PhoneNumber,
+    Address,
 }
