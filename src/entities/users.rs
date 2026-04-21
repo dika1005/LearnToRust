@@ -12,6 +12,7 @@ pub struct Model {
     pub password: String,
     pub fullname: String,
     pub role: String,
+    pub refresh_token: Option<String>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

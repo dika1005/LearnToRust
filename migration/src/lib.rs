@@ -7,6 +7,7 @@ mod m20260415_105052_create_customers;
 mod m20260415_105108_create_vehicles;
 mod m20260415_105313_create_service_orders;
 mod m20260415_105321_create_service_order_items;
+mod m20260421_141951_add_token_to_users;
 
 pub struct Migrator;
 
@@ -21,6 +22,7 @@ impl MigratorTrait for Migrator {
             Box::new(m20260415_105108_create_vehicles::Migration),
             Box::new(m20260415_105313_create_service_orders::Migration),
             Box::new(m20260415_105321_create_service_order_items::Migration),
+            Box::new(m20260421_141951_add_token_to_users::Migration),
         ]
     }
 }
